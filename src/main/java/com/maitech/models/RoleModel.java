@@ -25,4 +25,8 @@ public class RoleModel implements Serializable {
     private String code;
 
     private String description;
+
+    public RoleModel(String code) {
+        this.code = code;
+    }
 }

@@ -42,4 +42,8 @@ public class UserModel implements Serializable {
 
     @DBRef
     private RoleModel roleModel;
+
+    public UserModel(String username) {
+        this.username = username;
+    }
 }

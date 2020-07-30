@@ -40,6 +40,22 @@ public class UserController {
         return ResponseEntity.status( (userModel != null) ? HttpStatus.OK : HttpStatus.NOT_FOUND).body( (userModel != null) ? userDto.fromUserModel(userModel) : null);
     }
 
+    @RequestMapping("/phone")
+    public ResponseEntity<UserDto> findUserByPhone(@RequestParam("query") int phone) {
+        UserDto userDto = new UserDto();
+        UserModel userModel = userService.findUserByPhone(phone);
+
+        return ResponseEntity.status( (userModel != null) ? HttpStatus.OK : HttpStatus.NOT_FOUND).body( (userModel != null) ? userDto.fromUserModel(userModel) : null);
+    }
+
+    @RequestMapping("/email")
+    public ResponseEntity<UserDto> findUserByEmail(@RequestParam("query") String email) {
+        UserDto userDto = new UserDto();
+        UserModel userModel = userService.findUserByEmail(email);
+
+        return ResponseEntity.status( (userModel != null) ? HttpStatus.OK : HttpStatus.NOT_FOUND).body( (userModel != null) ? userDto.fromUserModel(userModel) : null);
+    }
+
     @RequestMapping("/username")
     public ResponseEntity<UserDto> findUserByUsername(@RequestParam("query") String username) {
         UserDto userDto = new UserDto();
@@ -90,5 +106,20 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUserById(@PathVariable() String id) {
         return (userService.deleteUserById(id)) ? ResponseEntity.status(HttpStatus.OK).body(null) : ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
+
+    @DeleteMapping("/phone")
+    public ResponseEntity<?> deleteUserByPhone(@RequestParam() int phone) {
+        return (userService.deleteUserByPhone(phone)) ? ResponseEntity.status(HttpStatus.OK).body(null) : ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
+
+    @DeleteMapping("/email")
+    public ResponseEntity<?> deleteUserByEmail(@RequestParam() String email) {
+        return (userService.deleteUserByEmail(email)) ? ResponseEntity.status(HttpStatus.OK).body(null) : ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
+
+    @DeleteMapping("/username")
+    public ResponseEntity<?> deleteUserByUsername(@RequestParam() String username) {
+        return (userService.deleteUserByUsername(username)) ? ResponseEntity.status(HttpStatus.OK).body(null) : ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 }

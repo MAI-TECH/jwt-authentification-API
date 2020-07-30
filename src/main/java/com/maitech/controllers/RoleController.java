@@ -13,7 +13,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/authentification/users")
+@RequestMapping("/authentification/roles")
 public class RoleController {
 
     @Autowired
@@ -34,18 +34,21 @@ public class RoleController {
         RoleDto roleDto = new RoleDto();
         RoleModel roleModel = roleService.findRoleById(id);
 
-        if (roleModel != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(roleDto.fromRoleModel(roleModel));
-        }
-        else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+        return ResponseEntity.status( (roleModel != null) ? HttpStatus.OK : HttpStatus.NOT_FOUND).body( (roleModel != null) ? roleDto.fromRoleModel(roleModel) : null);
     }
 
-    @RequestMapping
-    public ResponseEntity<RoleDto> findRoleByName(@RequestParam("name") String name) {
+    @GetMapping("/name")
+    public ResponseEntity<RoleDto> findRoleByName(@RequestParam("query") String name) {
         RoleDto roleDto = new RoleDto();
         RoleModel roleModel = roleService.findRoleByName(name);
+
+        return ResponseEntity.status( (roleModel != null) ? HttpStatus.OK : HttpStatus.NOT_FOUND).body( (roleModel != null) ? roleDto.fromRoleModel(roleModel) : null);
+    }
+
+    @RequestMapping("/code")
+    public ResponseEntity<RoleDto> findRoleByCode(@RequestParam("query") String code) {
+        RoleDto roleDto = new RoleDto();
+        RoleModel roleModel = roleService.findRoleByCode(code);
 
         return ResponseEntity.status( (roleModel != null) ? HttpStatus.OK : HttpStatus.NOT_FOUND).body( (roleModel != null) ? roleDto.fromRoleModel(roleModel) : null);
     }
@@ -64,5 +67,15 @@ public class RoleController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteRoleById(@PathVariable() String id) {
         return (roleService.deleteRoleById(id)) ? ResponseEntity.status(HttpStatus.OK).body(null) : ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
+
+    @DeleteMapping("/name")
+    public ResponseEntity<?> deleteRoleByName(@RequestParam() String name) {
+        return (roleService.deleteRoleByName(name)) ? ResponseEntity.status(HttpStatus.OK).body(null) : ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
+
+    @DeleteMapping("/code")
+    public ResponseEntity<?> deleteRoleByCode(@RequestParam() String code) {
+        return (roleService.deleteRoleByCode(code)) ? ResponseEntity.status(HttpStatus.OK).body(null) : ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 }

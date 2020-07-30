@@ -4,6 +4,7 @@ import com.maitech.models.UserModel;
 import com.maitech.repositories.RoleRepository;
 import com.maitech.repositories.UserRepository;
 import com.maitech.utils.Validation;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -58,7 +59,7 @@ public class UserService {
         return (userModel != null) ? userModel : null;
     }
 
-    public UserModel saveUser(@org.jetbrains.annotations.NotNull UserModel userModel) throws Exception {
+    public UserModel saveUser(@NonNull UserModel userModel) throws Exception {
         UserModel user = new UserModel();
         List<String> errorList = new ArrayList<>();
 
@@ -90,12 +91,12 @@ public class UserService {
         user.setUsername(userModel.getUsername());
 
         if (!validation.isValidPassword(userModel.getPassword()))
-            errorList.add("Error");
+            errorList.add("ERROR : Password is not valid (must length 9 - n Charactars and requires at least 02 uppercase letter, 02 lowercase letter, 02 number and 02 special charactar)");
         user.setPassword(bCryptPasswordEncoder.encode(userModel.getPassword()));
 
-        if (roleRepository.findByName(userModel.getRoleModel().getName()) == null)
-            errorList.add("Unexpected Value : " + userModel.getRoleModel().getName());
-        user.setRoleModel(roleRepository.findByName(userModel.getRoleModel().getName()));
+        if (roleRepository.findByCode(userModel.getRoleModel().getCode()) == null)
+            errorList.add("Unexpected Value : " + userModel.getRoleModel().getCode());
+        user.setRoleModel(roleRepository.findByCode(userModel.getRoleModel().getCode()));
 
         if (!errorList.isEmpty()) {
             String errorMessage = "";

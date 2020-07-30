@@ -2,6 +2,7 @@ package com.maitech.services;
 
 import com.maitech.models.RoleModel;
 import com.maitech.repositories.RoleRepository;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,7 +39,7 @@ public class RoleService {
         return (roleModel != null) ? roleModel : null;
     }
 
-    public RoleModel saveRole(RoleModel roleModel) throws Exception {
+    public RoleModel saveRole(@NonNull RoleModel roleModel) throws Exception {
         RoleModel role = new RoleModel();
         List<String> errorList = new ArrayList<>();
 

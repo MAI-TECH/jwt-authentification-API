@@ -4,6 +4,8 @@ import com.maitech.models.RoleModel;
 import com.maitech.models.UserModel;
 import com.maitech.repositories.RoleRepository;
 import com.maitech.repositories.UserRepository;
+import com.maitech.services.RoleService;
+import com.maitech.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,10 +19,10 @@ import java.util.List;
 public class JwtAuthentificationApiApplication implements CommandLineRunner {
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 
 	@Autowired
-	private RoleRepository roleRepository;
+	private RoleService roleService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(JwtAuthentificationApiApplication.class, args);
@@ -36,8 +38,8 @@ public class JwtAuthentificationApiApplication implements CommandLineRunner {
 		UserModel user1, user2;
 		RoleModel role1, role2;
 
-		List<UserModel> userModels = userRepository.findAll();
-		List<RoleModel> roleModels = roleRepository.findAll();
+		List<UserModel> userModels = userService.findAllUsers();
+		List<RoleModel> roleModels = roleService.findAllRoles();
 
 		if (roleModels.isEmpty()) {
 			role1 = new RoleModel();
@@ -50,12 +52,12 @@ public class JwtAuthentificationApiApplication implements CommandLineRunner {
 			role2.setCode("ADMIN");
 			role2.setDescription("Utilisateur ayant tout les droits");
 
-			role1 = roleRepository.save(role1);
-			role2 = roleRepository.save(role2);
+			role1 = roleService.saveRole(role1);
+			role2 = roleService.saveRole(role2);
 		}
 		else {
-			role1 = roleRepository.findByCode("USER");
-			role2 = roleRepository.findByCode("ADMIN");
+			role1 = roleService.findRoleByCode("USER");
+			role2 = roleService.findRoleByCode("ADMIN");
 		}
 
 		if (userModels.isEmpty()) {
@@ -79,8 +81,8 @@ public class JwtAuthentificationApiApplication implements CommandLineRunner {
 			user2.setPassword("#AnanI|1597");
 			user2.setRoleModel(role2);
 
-			user1 = userRepository.save(user1);
-			user2 = userRepository.save(user2);
+			user1 = userService.saveUser(user1);
+			user2 = userService.saveUser(user2);
 		}
 	}
 }

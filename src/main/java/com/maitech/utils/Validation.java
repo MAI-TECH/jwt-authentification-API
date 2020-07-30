@@ -10,9 +10,9 @@ import java.util.regex.Pattern;
 @NoArgsConstructor
 public class Validation {
 
-    private static final String EMAILREGEX = "";
-    private static final String PASSWORDREGEX = "";
-    private static final String PHONEREGEX = "";
+    private static final String EMAILREGEX = "^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+(?:[a-zA-Z]{2}|aero|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel)$";
+    private static final String PASSWORDREGEX = "^(?=.*[a-z].*[a-z])(?=.*[A-Z].*[A-Z])(?=.*\\d.*\\d)(?=.*\\W.*\\W)[a-zA-Z0-9\\S]{9,}$";
+    private static final String PHONEREGEX = "^(\\(?\\+?[0-9]*\\)?)?[0-9_\\- \\(\\)]*$";
 
     public boolean isValidEmail(String email) {
         Pattern pattern = Pattern.compile(EMAILREGEX);

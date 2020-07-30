@@ -23,6 +23,10 @@ public class UserDto implements Serializable {
 
     private String email;
 
+    private byte[] avatar;
+
+    private String format;
+
     private String username;
 
     private String password;
@@ -36,6 +40,8 @@ public class UserDto implements Serializable {
         this.gender = userModel.getGender();
         this.phone = userModel.getPhone();
         this.email = userModel.getEmail();
+        this.avatar = userModel.getAvatar();
+        this.format = userModel.getFormat();
         this.username = userModel.getUsername();
         this.password = userModel.getPassword();
         this.role = userModel.getRoleModel().getCode();
@@ -52,6 +58,8 @@ public class UserDto implements Serializable {
         userModel.setGender(gender);
         userModel.setPhone(phone);
         userModel.setEmail(email);
+        userModel.setAvatar(avatar);
+        userModel.setFormat(format);
         userModel.setUsername(username);
         userModel.setPassword(password);
         userModel.setRoleModel(new RoleModel(role));

@@ -2,8 +2,6 @@ package com.maitech;
 
 import com.maitech.models.RoleModel;
 import com.maitech.models.UserModel;
-import com.maitech.repositories.RoleRepository;
-import com.maitech.repositories.UserRepository;
 import com.maitech.services.RoleService;
 import com.maitech.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,23 +60,23 @@ public class JwtAuthentificationApiApplication implements CommandLineRunner {
 
 		if (userModels.isEmpty()) {
 			user1 = new UserModel();
-			user1.setLastName("NGUENGUIA");
-			user1.setFirstName("MORELLE");
+			user1.setLastName("user");
+			user1.setFirstName("user");
 			user1.setGender("Femme");
-			user1.setPhone(671154549);
+			user1.setPhone(812457888);
 			user1.setEmail("user@email.com");
-			user1.setUsername("morelle");
-			user1.setPassword("#AnanI|1597");
+			user1.setUsername("user");
+			user1.setPassword("#YoomeeCM|2020");
 			user1.setRoleModel(role1);
 
 			user2 = new UserModel();
-			user2.setLastName("MBOBDA");
-			user2.setFirstName("AYMAR IVAN");
+			user2.setLastName("admin");
+			user2.setFirstName("admin");
 			user2.setGender("Homme");
-			user2.setPhone(694142288);
-			user2.setEmail("aymarmbobda@gmail.com");
-			user2.setUsername("aymar");
-			user2.setPassword("#AnanI|1597");
+			user2.setPhone(812457887);
+			user2.setEmail("admin@email.com");
+			user2.setUsername("admin");
+			user2.setPassword("#YoomeeCM|2020");
 			user2.setRoleModel(role2);
 
 			user1 = userService.saveUser(user1);
